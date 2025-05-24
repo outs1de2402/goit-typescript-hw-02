@@ -1,6 +1,12 @@
+import React from "react";
 import ImageCard from "../ImageCard/ImageCard";
-const ImageGallery = ({ images, onImageClick }) => {
-  if (!Array.isArray(images)) {
+import { ImageGalleryProps } from "../../App.types";
+
+const ImageGallery: React.FC<ImageGalleryProps> = ({
+  images,
+  onImageClick,
+}) => {
+  if (!Array.isArray(images) || images.length === 0) {
     return <p>No images available</p>;
   }
 

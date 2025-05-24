@@ -1,16 +1,21 @@
-import { useState } from "react";
+import React, { useState, FormEvent, ChangeEvent } from "react";
 import { toast } from "react-toastify";
+import { SearchBarProps } from "../../App.types";
 
-const SearchBar = ({ onSubmit }) => {
-  const [query, setQuery] = useState("");
+const SearchBar: React.FC<SearchBarProps> = ({ onSubmit }) => {
+  const [query, setQuery] = useState<string>("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (query.trim() === "") {
       toast.error("Введіть текст для пошуку");
     } else {
-      onSubmit(query);
+      onSubmit(query.trim());
     }
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
   };
 
   return (
@@ -19,7 +24,7 @@ const SearchBar = ({ onSubmit }) => {
         <input
           type="text"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={handleChange}
           placeholder="Search images and photos"
           autoComplete="off"
           autoFocus
